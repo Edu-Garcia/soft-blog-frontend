@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Section from '../../../components/Section';
 import Text from '../../../components/Text';
 import DataTable from '../../../components/DataTable';
@@ -20,7 +20,7 @@ const columns = [
 const Users: React.FunctionComponent = (): React.ReactElement => {
   const [users, setUsers] = useState<IUser[]>([]);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const fetchUsers = async (): Promise<void> => {
     try {
@@ -34,7 +34,7 @@ const Users: React.FunctionComponent = (): React.ReactElement => {
   const deleteUser = async (id: string): Promise<void> => {
     try {
       const res = await UsersService.delete(id);
-      toastMsg(ToastType.Success, res);
+      toastMsg(ToastType.Success, res.toString());
       fetchUsers();
     } catch (error) {
       toastMsg(ToastType.Error, (error as Error).message);
@@ -66,7 +66,7 @@ const Users: React.FunctionComponent = (): React.ReactElement => {
       </Row>
       <Row>
         <Col md={12} className="mt-3 mb-2">
-          <Button type="button" variant="primary" onClick={() => history.push('/funcionarios/acao')} cy="test-create">
+          <Button type="button" variant="primary" onClick={() => navigate('/usuarios/acao')} cy="test-create">
             Cadastrar funcionário
           </Button>
         </Col>
@@ -76,7 +76,7 @@ const Users: React.FunctionComponent = (): React.ReactElement => {
             columns={columns}
             hasActions
             deleteAction={(id) => deleteUser(id)}
-            editAction={(id) => history.push(`/funcionarios/acao/${id}`)}
+            editAction={(id) => navigate(`/usuarios/acao/${id}`)}
           />
         </Col>
       </Row>

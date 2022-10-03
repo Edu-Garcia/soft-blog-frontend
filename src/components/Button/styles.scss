@@ -39,9 +39,12 @@
   height: 2.12rem;
   border-radius: 0.25rem;
   border: 0.12rem solid transparent;
+  color: var(--green-500);
   svg {
     color: var(--white-100);
   }
+
+  box-shadow: none;
 }
 
 /*!
@@ -68,20 +71,28 @@
  * Lista de botões padrões.
 */
 
+.btn-link {
+  color: var(--green-400);
+  &:hover {
+    color: var(--green-300);
+  }
+  @include btnDisabled;
+}
+
 .btn-primary {
   color: var(--white-100);
-  background-color: var(--teal-500);
+  background-color: var(--green-500);
   &:hover {
-    background-color: var(--teal-600);
-    border-color: var(--teal-600);
+    background-color: var(--green-600);
+    border-color: var(--green-600);
   }
   &:focus {
-    background-color: var(--teal-700);
-    border-color: var(--teal-600);
+    background-color: var(--green-700);
+    border: 0.12rem solid var(--green-600);
+    box-shadow: var(--green-600);
   }
   &:active {
-    background-color: var(--teal-600);
-    border-color: transparent;
+    background-color: var(--green-600);
   }
   @include btnDisabled;
 }
@@ -122,17 +133,17 @@
 
 .btn-danger {
   color: var(--white-100);
-  background-color: var(--red-500);
+  background-color: var(--red-600);
   &:hover {
     background-color: var(--red-700);
-    border-color: var(--red-700);
+    border-color: var(--red-800);
   }
   &:focus {
-    background-color: var(--red-500);
-    border: 0.12rem solid var(--red-900);
+    background-color: var(--red-600);
+    border: 0.12rem solid var(--red-700);
   }
   &:active {
-    background-color: var(--red-700);
+    background-color: var(--red-800);
   }
   @include btnDisabled;
 }
@@ -142,36 +153,36 @@
 */
 
 .btn-outline-primary {
-  background-color: var(--white-100);
-  border-color: var(--teal-500);
-  color: var(--teal-500);
+  background-color: transparent;
+  border-color: var(--green-500);
+  color: var(--green-500);
   &:hover {
     color: var(--white-100);
-    background-color: var(--teal-500);
-    border-color: var(--teal-500);
+    background-color: var(--green-500);
+    border-color: var(--green-500);
     svg {
       color: var(--white-100);
     }
   }
   &:focus {
-    color: var(--teal-500);
-    background-color: var(--teal-100);
-    border-color: var(--teal-600);
+    color: var(--green-500);
+    background-color: var(--green-100);
+    border-color: var(--green-600);
     svg {
-      color: var(--teal-500);
+      color: var(--green-500);
     }
   }
   &:active {
     color: var(--white-100);
-    background-color: var(--teal-500);
-    border-color: var(--teal-500);
+    background-color: var(--green-500);
+    border-color: var(--green-500);
     svg {
       color: var(--white-100);
     }
   }
   @include btnDisabledOutline;
   svg {
-    color: var(--teal-500);
+    color: var(--green-500);
   }
 }
 
@@ -329,15 +340,15 @@
 }
 
 .btn-tabs {
-  color: var(--teal-500);
+  color: var(--green-500);
   border: none;
-  border-bottom: 0.063rem solid var(--teal-600) !important;
+  border-bottom: 0.063rem solid var(--green-600) !important;
   background-color: var(--white-500);
   margin-top: 1rem;
   border-radius: 0 !important;
   &:hover {
-    background-color: var(--teal-400);
-    border-color: var(--teal-600);
+    background-color: var(--green-400);
+    border-color: var(--green-600);
   }
 }
 
@@ -345,7 +356,7 @@
   color: var(--white-100);
   border: none;
   border-bottom: 0.063rem solid var(--white-600);
-  background-color: var(--teal-500);
+  background-color: var(--green-500);
   margin-top: 1rem;
   border-radius: 0;
 }

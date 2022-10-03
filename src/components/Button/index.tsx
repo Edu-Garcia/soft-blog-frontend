@@ -3,7 +3,7 @@ import { Button, ButtonProps } from 'react-bootstrap';
 import './styles.scss';
 
 interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement>, ButtonProps {
-  cy: string;
+  cy?: string;
   children?: React.ReactNode | React.ReactNode[];
 }
 
@@ -12,7 +12,5 @@ const MyButton = ({ children, cy, ...props }: IButton): React.ReactElement => (
     {children}
   </Button>
 );
-
-MyButton.defaultProps = { children: '' };
 
 export default MyButton;

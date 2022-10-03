@@ -18,7 +18,7 @@ const Sidebar: React.FunctionComponent = () => {
       <div className="sidebar__routes w-100">
         <ul className="sidebar__routes--ul d-flex flex-wrap flex-column">
           <li className="d-flex align-items-center">
-            <NavLink to="/" exact className="sidebar__routes--link w-100" activeClassName="sidebar__routes--active">
+            <NavLink to="/" className="sidebar__routes--link w-100">
               <HiHome size={22} />{' '}
               <Text as="span" className="sidebar__routes--title">
                 Home
@@ -26,11 +26,7 @@ const Sidebar: React.FunctionComponent = () => {
             </NavLink>
           </li>
           <li className="d-flex align-items-center">
-            <NavLink
-              to="/funcionarios"
-              className="sidebar__routes--link w-100"
-              activeClassName="sidebar__routes--active"
-            >
+            <NavLink to="/usuarios" className="sidebar__routes--link w-100">
               <HiUser size={22} />{' '}
               <Text as="span" className="sidebar__routes--title">
                 Gerenciar funcionários

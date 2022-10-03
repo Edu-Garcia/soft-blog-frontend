@@ -49,8 +49,8 @@ $custom-theme-colors: (
   gray-500: #57677b,
   gray-600: #34465d,
   gray-700: #12263f,
-  gray-800: #0a1723,
-  gray-900: #020406,
+  gray-800: #202024,
+  gray-900: #121214,
   gray-rgba: rgba(0, 0, 0, 0.2),
   // reds colors
   red-100: #f8d7da,
@@ -77,7 +77,7 @@ $custom-theme-colors: (
   green-200: #a3cfbb,
   green-300: #75b798,
   green-400: #5cd3a1,
-  green-500: #198754,
+  green-500: #00875f,
   green-600: #146c43,
   green-700: #0f5132,
   green-800: #0a3622,
@@ -134,11 +134,13 @@ $utilities-bg-colors: map-loop($utilities-colors, rgba-css-var, '$key', 'bg');
   --is-400: 400;
   --is-600: 600;
   --is-700: 700;
+  --is-900: 900;
 
   --is-sm: 0.875rem;
   --is-md: 1rem;
+  --is-lg: 1.125rem;
 
-  --font-family: 'Titillium Web', sans-serif;
+  --font-family: 'Inter', sans-serif;
 }
 
 /*!

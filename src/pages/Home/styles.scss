@@ -1,0 +1,27 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    width: 80%;
+    margin: 1.5rem 0 0.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--green-400);
+  }
+
+  &__listPosts {
+    width: 80%;
+    margin: 2rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 2rem;
+  }
+
+  &__emptyListTitle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 5rem 0;
+  }
+}

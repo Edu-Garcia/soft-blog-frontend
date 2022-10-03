@@ -12,11 +12,11 @@ export const routes: IRoute[] = [
     component: Home,
   },
   {
-    path: '/funcionarios',
+    path: '/usuarios',
     component: Users,
   },
   {
-    path: '/funcionarios/acao/:id?',
+    path: '/usuarios/acao/:id?',
     component: Actions,
   },
   {

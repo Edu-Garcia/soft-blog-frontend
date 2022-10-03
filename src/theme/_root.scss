@@ -1,15 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--green-500) var(--gray-800);
+}
+
+*::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--gray-800);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--green-500);
+  border-radius: 1.25rem;
+  border: 3px solid var(--gray-800);
+}
+
 body {
+  min-height: 100vh;
   font-family: var(--font-family);
-  color: var(--gray-900);
+  color: var(--white-100);
   font-size: var(--is-md);
   font-weight: var(--is-400);
+  background-color: var(--gray-900);
   line-height: 1.5;
   overflow-x: hidden;
 }
 
 main {
   flex: 1 0 auto;
-  background-color: var(--white-100);
 }
 
 select,
