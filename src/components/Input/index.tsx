@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { FastField } from 'formik';
+import { Field } from 'formik';
 import Text from '../Text';
 
 interface IInput {
@@ -13,17 +13,33 @@ interface IInput {
   name: string;
   as: string;
   placeholder?: string;
+  disabled?: boolean;
+  type?: 'password' | 'e-mail';
 }
 
-const Input = ({ cy, isInvalid, msg, className, label, id, name, as, placeholder }: IInput): React.ReactElement => (
+const Input = ({
+  cy,
+  isInvalid,
+  msg,
+  className,
+  label,
+  id,
+  name,
+  as,
+  placeholder,
+  disabled,
+  type,
+}: IInput): React.ReactElement => (
   <label htmlFor={id} className="w-100">
     {label}
-    <FastField
+    <Field
       cy={cy}
       id={id}
       as={as}
       name={name}
+      type={type || 'text'}
       placeholder={placeholder}
+      disabled={disabled}
       className={classNames(`form-control ${isInvalid ? 'is-invalid' : ''} ${className}`)}
     />
     {isInvalid ? (

@@ -10,7 +10,7 @@ import './styles.scss';
 const Home: React.FunctionComponent = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
 
-  const fetchUsers = async (): Promise<void> => {
+  const fetchPosts = async (): Promise<void> => {
     try {
       const data = await PostsService.getPosts();
       setPosts(data);
@@ -20,11 +20,8 @@ const Home: React.FunctionComponent = () => {
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchPosts();
   }, []);
-
-  // eslint-disable-next-line
-  console.log(posts);
 
   return (
     <div className="home">

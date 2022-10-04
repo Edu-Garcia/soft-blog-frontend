@@ -1,0 +1,37 @@
+.errorPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  &__h2 {
+    font-size: 12rem;
+    font-weight: var(--is-900);
+    color: var(--green-500);
+    text-align: center;
+    text-shadow: 1px 1px 3px var(--green-400);
+  }
+
+  &__h4 {
+    font-size: 2rem;
+    display: inline-block;
+    padding: 1rem;
+    background-color: var(--green-700);
+    box-shadow: 1px 1px 3px var(--green-500);
+    font-weight: var(--is-600);
+    color: var(--white-100);
+    text-shadow: 1px 1px 2px var(--green-800);
+    text-align: center;
+  }
+
+  &__text {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    line-height: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+    font-size: var(--is-lg);
+  }
+}

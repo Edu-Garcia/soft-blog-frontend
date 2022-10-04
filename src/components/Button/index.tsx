@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonProps } from 'react-bootstrap';
+import { Button as ButtonRoot, ButtonProps } from 'react-bootstrap';
 import './styles.scss';
 
 interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement>, ButtonProps {
@@ -7,10 +7,10 @@ interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement>, ButtonP
   children?: React.ReactNode | React.ReactNode[];
 }
 
-const MyButton = ({ children, cy, ...props }: IButton): React.ReactElement => (
-  <Button data-cy={cy} {...props}>
+const Button = ({ children, cy, ...props }: IButton): React.ReactElement => (
+  <ButtonRoot data-cy={cy} {...props}>
     {children}
-  </Button>
+  </ButtonRoot>
 );
 
-export default MyButton;
+export default Button;

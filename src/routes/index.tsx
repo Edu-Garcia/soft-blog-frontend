@@ -12,6 +12,8 @@ import { AuthProvider } from '../contexts/AuthContext';
 // import checkTokenIsValid from '../utils/checkTokenIsValid';
 
 const Home = lazy(() => import('../pages/Home'));
+const Login = lazy(() => import('../pages/Login'));
+const Register = lazy(() => import('../pages/Register'));
 const Users = lazy(() => import('../pages/Users/List'));
 const Actions = lazy(() => import('../pages/Users/Actions'));
 const Error = lazy(() => import('../pages/Error'));
@@ -36,6 +38,8 @@ const AppRoutes: React.FunctionComponent = () => (
           <AuthProvider>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/usuarios" element={<Users />} />
               <Route path="/usuarios/acao" element={<Actions />} />
               <Route path="/usuarios/acao/:id" element={<Actions />} />
