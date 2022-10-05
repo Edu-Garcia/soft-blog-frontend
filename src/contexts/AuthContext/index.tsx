@@ -1,4 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react';
+import { AxiosError } from 'axios';
 import { IAuthContext, IAuthProvider, IContextUser, ISessionResponse } from './types';
 import toastMsg, { ToastType } from '../../utils/toastMsg';
 
@@ -46,7 +47,7 @@ export const AuthProvider = ({ children }: IAuthProvider): React.ReactElement =>
       localStorage.setItem('USER_ID', dataUser.id);
       localStorage.setItem('USER_ROLE', dataUser.role);
     } catch (error) {
-      toastMsg(ToastType.Error, 'Internal Server Error!');
+      toastMsg(ToastType.Error, error instanceof AxiosError ? error.response?.data.message : 'Internal Server Error!');
     }
   };
 

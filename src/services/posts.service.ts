@@ -7,6 +7,11 @@ class PostsService {
     return data;
   }
 
+  static async getMyPosts(): Promise<IPost[]> {
+    const { data } = await HttpClient.api.get(`/api/v1/posts/me`);
+    return data;
+  }
+
   static async getPost(id: string): Promise<IPost> {
     const { data } = await HttpClient.api.get(`/api/v1/posts/${id}`);
     return data;

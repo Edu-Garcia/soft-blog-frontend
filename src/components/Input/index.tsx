@@ -4,31 +4,33 @@ import { Field } from 'formik';
 import Text from '../Text';
 
 interface IInput {
-  cy: string;
-  isInvalid?: boolean;
-  msg?: string;
-  className?: string;
-  label?: string;
   id: string;
   name: string;
   as: string;
+  type?: 'password' | 'e-mail';
+  label?: string;
   placeholder?: string;
   disabled?: boolean;
-  type?: 'password' | 'e-mail';
+  className?: string;
+  msg?: string;
+  isInvalid?: boolean;
+  children?: React.ReactNode;
+  cy: string;
 }
 
 const Input = ({
-  cy,
-  isInvalid,
-  msg,
-  className,
-  label,
   id,
   name,
   as,
+  type,
+  label,
   placeholder,
   disabled,
-  type,
+  className,
+  msg,
+  isInvalid,
+  children,
+  cy,
 }: IInput): React.ReactElement => (
   <label htmlFor={id} className="w-100">
     {label}
@@ -41,7 +43,9 @@ const Input = ({
       placeholder={placeholder}
       disabled={disabled}
       className={classNames(`form-control ${isInvalid ? 'is-invalid' : ''} ${className}`)}
-    />
+    >
+      {children}
+    </Field>
     {isInvalid ? (
       <Text as="span" color="var(--red-500)" weight={500}>
         {msg}

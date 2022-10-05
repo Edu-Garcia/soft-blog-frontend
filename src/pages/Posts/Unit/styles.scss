@@ -1,0 +1,67 @@
+.post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__header {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0 0.5rem;
+    border-bottom: 1px solid var(--green-400);
+    padding: 0.5rem 0;
+    gap: 1rem;
+
+    &__author {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      font-weight: var(--is-600);
+      margin: 1rem 0;
+      font-size: var(--is-lg);
+      &::first-letter {
+        text-transform: capitalize;
+      }
+
+      &__name {
+        width: calc(100% - 0.5rem - 28px);
+      }
+    }
+
+    &__date {
+      color: var(--gray-200);
+    }
+  }
+
+  &__body {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--gray-800);
+    margin-top: 0.5rem;
+    padding: 1rem;
+
+    &__infos {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+
+      &__title {
+        font-size: 1.25rem;
+        font-weight: var(--is-700);
+
+        &::first-letter {
+          text-transform: capitalize;
+        }
+      }
+
+      &__buttons {
+        display: flex;
+        gap: 0.5rem;
+      }
+    }
+  }
+}

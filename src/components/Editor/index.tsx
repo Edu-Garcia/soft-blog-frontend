@@ -2,6 +2,7 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 import { Form } from 'react-bootstrap';
 import classNames from 'classnames';
+
 import './styles.scss';
 
 interface IEditor {

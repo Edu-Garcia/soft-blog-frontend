@@ -17,6 +17,32 @@ header {
       gap: 0.5rem;
       font-size: 1.5rem;
       font-weight: var(--is-700);
+
+      &__link {
+        color: var(--white-100);
+        text-decoration: none;
+      }
+    }
+
+    &__pages {
+      &__text {
+        &__button {
+          background-color: transparent;
+          color: var(--white-100);
+          outline: none;
+          border: none;
+          margin: 0 0.5rem;
+          transition: 0.2s;
+
+          &:hover {
+            color: var(--green-400);
+          }
+
+          &:disabled {
+            color: var(--green-400);
+          }
+        }
+      }
     }
 
     &__buttonsContainer {

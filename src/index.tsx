@@ -11,7 +11,7 @@ const root = createRoot(container!);
 
 root.render(
   <>
-    <ToastContainer {...ToastContainerProps} />
+    <ToastContainer {...ToastContainerProps} theme="dark" />
     <App />
   </>
 );

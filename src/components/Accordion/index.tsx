@@ -1,5 +1,6 @@
 import React from 'react';
 import { Accordion, AccordionProps } from 'react-bootstrap';
+
 import './styles.scss';
 
 interface IAccordion extends AccordionProps {

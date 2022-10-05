@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardProps } from 'react-bootstrap';
+
 import './styles.scss';
 
 interface ICard extends CardProps {

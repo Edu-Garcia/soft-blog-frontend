@@ -3,16 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import { SiCloudsmith } from 'react-icons/si';
 import * as yup from 'yup';
+import { AxiosError } from 'axios';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
 import Button from '../../components/Button';
-// eslint-disable-next-line
+import Input from '../../components/Input';
 import SessionsService from '../../services/sessions.service';
 import toastMsg, { ToastType } from '../../utils/toastMsg';
+import HttpClient from '../../services/httpClient';
+import getTokenStorage from '../../utils/getTokenStorage';
+
 import './styles.scss';
-import Input from '../../components/Input';
 
 const loginSchema = yup.object().shape({
-  cpf: yup.string().min(11, 'Min. 11 caracteres').max(14, 'Máximo 14 caracteres').required('Campo obrigatório'),
+  email: yup.string().email('E-mail inválido').required('Campo obrigatório'),
   password: yup.string().required('Campo obrigatório'),
 });
 
@@ -28,9 +31,7 @@ const defaultValue = {
 
 const Login: React.FunctionComponent = () => {
   const navigate = useNavigate();
-  // eslint-disable-next-line
   const { signIn, signed } = useAuth();
-
   const [loader, setLoader] = useState<boolean>(false);
   const [initialValues, setInitialValues] = useState(defaultValue as ILogin);
 
@@ -39,20 +40,16 @@ const Login: React.FunctionComponent = () => {
       setLoader(true);
       const { email, password } = values;
 
-      // eslint-disable-next-line
-      console.log(email);
-      // eslint-disable-next-line
-      console.log(password);
+      const data = await SessionsService.create(email, password);
+      signIn(data);
 
-      // const data = await SessionsService.create(email, password);
-      // signIn(data);
-
-      // if (data.token) {
-      //   toastMsg(ToastType.Success, 'Login realizado com sucesso!');
-      //   navigate('/');
-      // }
+      if (data.token) {
+        HttpClient.api.defaults.headers.common.Authorization = getTokenStorage();
+        toastMsg(ToastType.Success, 'Login realizado com sucesso!');
+        navigate('/');
+      }
     } catch (error) {
-      toastMsg(ToastType.Error, 'Internal Server Error!');
+      toastMsg(ToastType.Error, error instanceof AxiosError ? error.response?.data.message : 'Internal Server Error!');
     } finally {
       setLoader(false);
     }
@@ -79,48 +76,47 @@ const Login: React.FunctionComponent = () => {
               initialValues={initialValues}
               validationSchema={loginSchema}
               enableReinitialize
-              onSubmit={(values) => {
-                // eslint-disable-next-line
-                console.log('values');
-                handleSubmit(values);
-              }}
+              onSubmit={(values) => handleSubmit(values)}
             >
               {({ errors, touched }) => (
                 <Form autoComplete="off">
                   <Input
-                    cy="test-inputEmail"
-                    as="input"
-                    isInvalid={(errors.email && touched.email) || false}
-                    msg={errors.email}
-                    label="E-mail"
                     id="email"
                     name="email"
-                    placeholder="Insira seu email"
+                    as="input"
                     type="e-mail"
+                    label="E-mail"
+                    placeholder="Insira seu email"
+                    disabled={loader}
+                    className="login__container__main__form__input"
+                    msg={errors.email}
+                    isInvalid={(errors.email && touched.email) || false}
+                    cy="test-inputEmail"
                   />
                   <Input
-                    cy="test-inputPassword"
-                    as="input"
-                    isInvalid={(errors.email && touched.email) || false}
-                    msg={errors.email}
-                    label="Senha"
                     id="password"
                     name="password"
-                    placeholder="Insira sua senha"
+                    as="input"
                     type="password"
+                    label="Senha"
+                    placeholder="Insira sua senha"
+                    disabled={loader}
+                    className="login__container__main__form__input"
+                    msg={errors.password}
+                    isInvalid={(errors.password && touched.password) || false}
+                    cy="test-inputPassword"
                   />
                   <p className="login__container__main__form__p">
+                    Ainda não possui uma conta?{' '}
                     <a className="login__container__main__form__p__link" href="/register">
                       Cadastro
                     </a>
                   </p>
                   <div className="login__container__main__form__buttons">
                     <Button variant="secondary" onClick={() => navigate('/')}>
-                      Início
+                      Home
                     </Button>
-                    <Button type="submit" disabled={loader}>
-                      Entrar
-                    </Button>
+                    <Button type="submit">Entrar</Button>
                   </div>
                 </Form>
               )}

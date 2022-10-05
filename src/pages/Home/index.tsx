@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { MdOutlineSearchOff } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import Button from '../../components/Button';
 import Header from '../../components/Header';
 import { PostCard } from '../../components/PostCard';
+import { useAuth } from '../../contexts/AuthContext/useAuth';
 import { IPost } from '../../interfaces';
 import PostsService from '../../services/posts.service';
 import toastMsg, { ToastType } from '../../utils/toastMsg';
+
 import './styles.scss';
 
 const Home: React.FunctionComponent = () => {
+  const navigate = useNavigate();
+  const { signed } = useAuth();
+
   const [posts, setPosts] = useState<IPost[]>([]);
 
   const fetchPosts = async (): Promise<void> => {
@@ -26,12 +33,20 @@ const Home: React.FunctionComponent = () => {
   return (
     <div className="home">
       <Header />
-      <h1 className="home__title">Todas as postagens</h1>
+      <div className="home__header">
+        <h1 className="home__header__title">Todas as postagens</h1>
+        {signed && (
+          <Button variant="primary" onClick={() => navigate('/postagens/acao')}>
+            Nova postagem
+          </Button>
+        )}
+      </div>
       {posts.length ? (
         <div className="home__listPosts">
           {React.Children.toArray(
             posts.map((post) => (
               <PostCard
+                id={post.id}
                 title={post.title}
                 author={post.user.name}
                 category={post.category.title}

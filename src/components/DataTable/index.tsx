@@ -4,6 +4,7 @@ import { Table } from 'react-bootstrap';
 import { HiTrash, HiPencil } from 'react-icons/hi';
 import { IUser } from '../../interfaces';
 import formatDate from '../../utils/formatDate';
+
 import './styles.scss';
 
 export interface IColumn {

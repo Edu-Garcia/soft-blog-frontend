@@ -5,6 +5,7 @@ import { HiUser, HiHome } from 'react-icons/hi';
 import Text from '../Text';
 import { useToggleMenu } from '../../contexts/ToggleMenuContext';
 import { ReactComponent as Logo } from '../../statics/logo/logo.svg';
+
 import './styles.scss';
 
 const Sidebar: React.FunctionComponent = () => {

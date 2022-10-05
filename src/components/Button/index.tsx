@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button as ButtonRoot, ButtonProps } from 'react-bootstrap';
+
 import './styles.scss';
 
 interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement>, ButtonProps {

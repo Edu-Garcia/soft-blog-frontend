@@ -12,13 +12,13 @@ class UsersService {
     return data;
   }
 
-  static async create(name: string, email: string, password: string): Promise<void> {
+  static async create(name: string, email: string, password: string): Promise<IUser> {
     const obj = { name, email, password };
     const { data } = await HttpClient.api.post('/api/v1/users', obj);
     return data;
   }
 
-  static async update(name: string, id: string): Promise<void> {
+  static async update(name: string, id: string): Promise<IUser> {
     const obj = { name };
     const { data } = await HttpClient.api.put(`/api/v1/users/${id}`, obj);
     return data;
