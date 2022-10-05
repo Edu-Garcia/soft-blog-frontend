@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { AxiosError } from 'axios';
 import { FaUserCircle } from 'react-icons/fa';
 import { RiDeleteBinFill, RiEdit2Fill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
-import PostsService from '../../services/posts.service';
 import formatDate from '../../utils/formatDate';
-import toastMsg, { ToastType } from '../../utils/toastMsg';
 
 import './styles.scss';
+import ModalDelete from '../ModalDelete';
 
 interface PostCardProps {
   id: string;
@@ -15,24 +13,33 @@ interface PostCardProps {
   author: string;
   category: string;
   createdAt: Date;
+  deletePost?: (id: string) => void;
   content?: string;
 }
 
-export function PostCard({ id, title, author, category, createdAt, content }: PostCardProps): React.ReactElement {
+export function PostCard({
+  id,
+  title,
+  author,
+  category,
+  createdAt,
+  deletePost,
+  content,
+}: PostCardProps): React.ReactElement {
   const navigate = useNavigate();
-  const [loader, setLoader] = useState<boolean>(false);
+  const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
 
-  const deletePost = async (): Promise<void> => {
-    setLoader(true);
-    try {
-      await PostsService.delete(id);
-      toastMsg(ToastType.Success, 'Postagem excluída com sucesso!');
-    } catch (error) {
-      toastMsg(ToastType.Error, error instanceof AxiosError ? error.response?.data.message : 'Internal Server Error!');
-    } finally {
-      setLoader(false);
-    }
-  };
+  // const deletePost = async (postId: string): Promise<void> => {
+  //   setLoader(true);
+  //   try {
+  //     await PostsService.delete(postId);
+  //     toastMsg(ToastType.Success, 'Postagem excluída com sucesso!');
+  //   } catch (error) {
+  //     toastMsg(ToastType.Error, error instanceof AxiosError ? error.response?.data.message : 'Internal Server Error!');
+  //   } finally {
+  //     setLoader(false);
+  //   }
+  // };
 
   return (
     <div className="card">
@@ -47,25 +54,30 @@ export function PostCard({ id, title, author, category, createdAt, content }: Po
         <button type="button" onClick={() => navigate(`/postagens/${id}`)} className="card__body__title">
           {title}
         </button>
-        {content && (
-          <div className="card__body__buttons">
-            <RiEdit2Fill
-              className="cursor-pointer"
-              size={20}
-              color="#5cd3a1"
-              onClick={() => {
-                if (!loader) navigate(`/postagens/acao/${id}`);
-              }}
+        {content && deletePost && (
+          <>
+            <ModalDelete
+              title="Deseja mesmo deletar a postagem?"
+              show={showModalDelete}
+              setShow={setShowModalDelete}
+              id={id}
+              deleteAction={deletePost}
             />
-            <RiDeleteBinFill
-              className="cursor-pointer"
-              size={20}
-              color="#b02a37"
-              onClick={() => {
-                if (!loader) deletePost();
-              }}
-            />
-          </div>
+            <div className="card__body__buttons">
+              <RiEdit2Fill
+                className="cursor-pointer"
+                size={20}
+                color="#5cd3a1"
+                onClick={() => navigate(`/postagens/acao/${id}`)}
+              />
+              <RiDeleteBinFill
+                className="cursor-pointer"
+                size={20}
+                color="#b02a37"
+                onClick={() => setShowModalDelete(true)}
+              />
+            </div>
+          </>
         )}
       </div>
       {content && <p className="card__content">{content}</p>}

@@ -1,0 +1,26 @@
+.modal {
+  .modal-dialog {
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    gap: 0;
+    box-shadow: 0px 0px 3px var(--green-500);
+  }
+
+  .modal-header {
+    background-color: var(--green-700);
+    border: none;
+    border-radius: 0;
+  }
+
+  .modal-footer {
+    background-color: var(--gray-800);
+    border: none;
+    border-radius: 0;
+  }
+}

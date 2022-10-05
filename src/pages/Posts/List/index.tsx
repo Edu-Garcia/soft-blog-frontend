@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { MdOutlineSearchOff } from 'react-icons/md';
+import { BsPlusLg } from 'react-icons/bs';
 import { IPost } from '../../../interfaces';
 import PostsService from '../../../services/posts.service';
 import toastMsg, { ToastType } from '../../../utils/toastMsg';
@@ -31,6 +32,19 @@ const Posts: React.FunctionComponent = (): React.ReactElement => {
     }
   };
 
+  const deletePost = async (postId: string): Promise<void> => {
+    setLoader(true);
+    try {
+      await PostsService.delete(postId);
+      toastMsg(ToastType.Success, 'Postagem excluída com sucesso!');
+      fetchPosts();
+    } catch (error) {
+      toastMsg(ToastType.Error, error instanceof AxiosError ? error.response?.data.message : 'Internal Server Error!');
+    } finally {
+      setLoader(false);
+    }
+  };
+
   useEffect(() => {
     let isCleaningUp = false;
 
@@ -48,7 +62,13 @@ const Posts: React.FunctionComponent = (): React.ReactElement => {
       <div className="posts__header">
         <h1 className="posts__header__title">Minhas postagens</h1>
         {signed && (
-          <Button variant="primary" disabled={loader} onClick={() => navigate('/postagens/acao')}>
+          <Button
+            className="home__header__button"
+            variant="primary"
+            disabled={loader}
+            onClick={() => navigate('/postagens/acao')}
+          >
+            <BsPlusLg />
             Nova postagem
           </Button>
         )}
@@ -64,6 +84,7 @@ const Posts: React.FunctionComponent = (): React.ReactElement => {
                 category={post.category.title}
                 createdAt={post.created_at}
                 content={post.content}
+                deletePost={deletePost}
               />
             ))
           )}

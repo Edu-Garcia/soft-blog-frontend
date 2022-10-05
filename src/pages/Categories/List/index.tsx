@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { MdOutlineSearchOff } from 'react-icons/md';
 import { RiDeleteBinFill, RiEdit2Fill } from 'react-icons/ri';
+import { BsPlusLg } from 'react-icons/bs';
 import { ICategory } from '../../../interfaces';
 import CategoriesService from '../../../services/categories.service';
 import toastMsg, { ToastType } from '../../../utils/toastMsg';
 import Button from '../../../components/Button';
 import Header from '../../../components/Header';
+import ModalDelete from '../../../components/ModalDelete';
 import { useAuth } from '../../../contexts/AuthContext/useAuth';
 
 import './styles.scss';
@@ -15,6 +17,8 @@ import './styles.scss';
 const Categories: React.FunctionComponent = (): React.ReactElement => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
+  const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
+  const [deleteCategoryId, setDeleteCategoryId] = useState<string>('');
 
   const navigate = useNavigate();
   const { signed } = useAuth();
@@ -54,11 +58,19 @@ const Categories: React.FunctionComponent = (): React.ReactElement => {
 
   return (
     <div className="categories">
+      <ModalDelete
+        title="Deseja mesmo deletar a categoria?"
+        show={showModalDelete}
+        setShow={setShowModalDelete}
+        id={deleteCategoryId}
+        deleteAction={deleteCategory}
+      />
       <Header />
       <div className="categories__header">
         <h1 className="categories__header__title">Lista de categorias</h1>
         {signed && (
-          <Button variant="primary" onClick={() => navigate('/categorias/acao')}>
+          <Button className="categories__header__button" variant="primary" onClick={() => navigate('/categorias/acao')}>
+            <BsPlusLg />
             Nova categoria
           </Button>
         )}
@@ -83,7 +95,10 @@ const Categories: React.FunctionComponent = (): React.ReactElement => {
                     size={18}
                     color="#b02a37"
                     onClick={() => {
-                      if (!loader) deleteCategory(category.id);
+                      if (!loader) {
+                        setDeleteCategoryId(category.id);
+                        setShowModalDelete(true);
+                      }
                     }}
                   />
                 </div>

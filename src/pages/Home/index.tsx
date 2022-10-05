@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BsPlusLg } from 'react-icons/bs';
 import { MdOutlineSearchOff } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
@@ -36,7 +37,8 @@ const Home: React.FunctionComponent = () => {
       <div className="home__header">
         <h1 className="home__header__title">Todas as postagens</h1>
         {signed && (
-          <Button variant="primary" onClick={() => navigate('/postagens/acao')}>
+          <Button className="home__header__button" variant="primary" onClick={() => navigate('/postagens/acao')}>
+            <BsPlusLg />
             Nova postagem
           </Button>
         )}

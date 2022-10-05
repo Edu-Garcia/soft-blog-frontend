@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SiCloudsmith } from 'react-icons/si';
+import { MdOutlineLogout } from 'react-icons/md';
 import { useAuth } from '../../contexts/AuthContext/useAuth';
 import Button from '../Button';
 
@@ -72,7 +73,8 @@ const Header: React.FunctionComponent = () => {
             </Button>
           </div>
         ) : (
-          <Button variant="primary" onClick={() => signOut()}>
+          <Button className="headerContainer__logout" variant="primary" onClick={() => signOut()}>
+            <MdOutlineLogout />
             Logout
           </Button>
         )}

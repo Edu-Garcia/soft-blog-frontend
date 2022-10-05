@@ -11,16 +11,17 @@ import { useAuth } from '../../../contexts/AuthContext/useAuth';
 
 import './styles.scss';
 import formatDate from '../../../utils/formatDate';
+import ModalDelete from '../../../components/ModalDelete';
 
 const Post: React.FunctionComponent = (): React.ReactElement => {
   const [post, setPost] = useState<IPost>({} as IPost);
   const [isAuthor, setIsAuthor] = useState<boolean>(false);
-  const { user } = useAuth();
-  const { id } = useParams();
   const [loader, setLoader] = useState<boolean>(false);
+  const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
 
+  const { user, signed } = useAuth();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const { signed } = useAuth();
 
   const deletePost = async (postId: string): Promise<void> => {
     setLoader(true);
@@ -61,6 +62,13 @@ const Post: React.FunctionComponent = (): React.ReactElement => {
 
   return (
     <div className="post">
+      <ModalDelete
+        title="Deseja mesmo deletar a postagem?"
+        show={showModalDelete}
+        setShow={setShowModalDelete}
+        id={post.id}
+        deleteAction={deletePost}
+      />
       <Header />
       <div className="post__header">
         <span className="post__header__author">
