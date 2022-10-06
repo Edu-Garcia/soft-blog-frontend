@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { FaUserCircle } from 'react-icons/fa';
+import { RiDeleteBinFill, RiEdit2Fill } from 'react-icons/ri';
 import { IPost } from '../../../interfaces';
 import PostsService from '../../../services/posts.service';
 import toastMsg, { ToastType } from '../../../utils/toastMsg';
 import Button from '../../../components/Button';
 import Header from '../../../components/Header';
+import ModalDelete from '../../../components/ModalDelete';
+import formatDate from '../../../utils/formatDate';
 import { useAuth } from '../../../contexts/AuthContext/useAuth';
 
 import './styles.scss';
-import formatDate from '../../../utils/formatDate';
-import ModalDelete from '../../../components/ModalDelete';
 
 const Post: React.FunctionComponent = (): React.ReactElement => {
   const [post, setPost] = useState<IPost>({} as IPost);
@@ -83,9 +84,11 @@ const Post: React.FunctionComponent = (): React.ReactElement => {
           {signed && isAuthor && (
             <div className="post__body__infos__buttons">
               <Button variant="secondary" disabled={loader} onClick={() => navigate(`/postagens/acao/${post.id}`)}>
+                <RiEdit2Fill />
                 Editar
               </Button>
               <Button variant="danger" disabled={loader} onClick={() => deletePost(post.id)}>
+                <RiDeleteBinFill />
                 Excluir
               </Button>
             </div>

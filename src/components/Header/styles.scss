@@ -49,11 +49,26 @@ header {
       width: 12.5rem;
       display: flex;
       gap: 0.5rem;
-    }
 
-    &__logout {
-      display: flex;
-      gap: 0.5rem;
+      &__logout {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .dropdown-menu {
+        background-color: var(--gray-800);
+        box-shadow: 0px 0px 3px var(--green-500);
+        padding: 0.5rem;
+
+        .dropdown-item {
+          color: var(--white-100);
+          padding: 0.5rem;
+
+          &:hover {
+            background-color: var(--green-600);
+          }
+        }
+      }
     }
   }
 }

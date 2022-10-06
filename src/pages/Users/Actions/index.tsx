@@ -1,166 +1,124 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
+import { AxiosError } from 'axios';
 import { Formik, Form } from 'formik';
 import { Row, Col } from 'react-bootstrap';
-import { useNavigate, useParams } from 'react-router-dom';
-import Section from '../../../components/Section';
+import { useParams } from 'react-router-dom';
 import Text from '../../../components/Text';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import UsersService from '../../../services/users.service';
 import toastMsg, { ToastType } from '../../../utils/toastMsg';
+import Header from '../../../components/Header';
+import './styles.scss';
 
-const createSchema = yup.object().shape({
-  name: yup.string().min(2, 'Min. 2 caracteres').max(120, 'Máximo 120 caracteres').required('Campo obrigatório'),
-  email: yup.string().email('E-mail inválido').required('Campo obrigatório'),
-  password: yup.string().min(2, 'Min. 2 caracteres').max(120, 'Máximo 120 caracteres').required('Campo obrigatório'),
+const validateSchema = yup.object().shape({
+  name: yup.string().max(120, 'Máximo 50 caracteres').required('Campo obrigatório'),
 });
 
-interface ICreate {
+interface IUpdate {
   name: string;
-  email: string;
-  password: string;
 }
 
 const defaultValue = {
   name: '',
-  email: '',
-  password: '',
-} as ICreate;
+} as IUpdate;
 
-const Create: React.FunctionComponent = (): React.ReactElement => {
-  const navigate = useNavigate();
-  const { id } = useParams<string>();
+const ActionUser: React.FunctionComponent = (): React.ReactElement => {
+  const { id } = useParams();
   const [loader, setLoader] = useState<boolean>(false);
-  const [initialValues, setInitialValues] = useState(defaultValue as ICreate);
+  const [initialValues, setInitialValues] = useState(defaultValue as IUpdate);
 
-  const handleSubmit = async (values: ICreate): Promise<void> => {
+  const handleSubmit = async (values: IUpdate): Promise<void> => {
     try {
       setLoader(true);
-      const { name, password, email } = values;
+      const { name } = values;
 
       if (id) {
         await UsersService.update(name, id);
-        toastMsg(ToastType.Success, 'Atualização realizada com sucesso!');
-      } else {
-        await UsersService.create(name, password, email);
-        toastMsg(ToastType.Success, 'Cadastro realizado com sucesso!');
+        toastMsg(ToastType.Success, 'Nome editado com sucesso!');
       }
-      navigate('/');
     } catch (error) {
-      toastMsg(ToastType.Error, (error as Error).message);
+      toastMsg(ToastType.Error, error instanceof AxiosError ? error.response?.data.message : 'Internal Server Error!');
     } finally {
       setLoader(false);
     }
   };
 
   useEffect(() => {
-    let isCleaningUp = false;
-
     async function getUserById(): Promise<void> {
+      setLoader(true);
       try {
-        if (!isCleaningUp && id) {
+        if (id) {
           const res = await UsersService.user(id);
           if (res) {
-            const obj = { ...res } as ICreate;
-
-            setInitialValues(obj);
+            setInitialValues(res);
           }
         }
       } catch (error) {
-        toastMsg(ToastType.Error, (error as Error).message);
+        toastMsg(
+          ToastType.Error,
+          error instanceof AxiosError ? error.response?.data.message : 'Internal Server Error!'
+        );
+      } finally {
+        setLoader(false);
       }
     }
 
     getUserById();
-
-    return () => {
-      isCleaningUp = true;
-    };
-  }, [navigate, id]);
+  }, [id]);
 
   return (
-    <Section
-      className="create"
-      title={`${id ? 'Editar' : 'Criar'} conta`}
-      description={`${id ? 'Editar' : 'Criar'} conta`}
-    >
-      <Row className="mb-5">
-        <Col md={12}>
-          <Text as="h1" size="2rem" weight={700}>
-            {id ? 'Editar' : 'Criar'} conta
-          </Text>
-          <Text as="small" size=".85rem" weight={400}>
-            Os campos abaixo já contém validações configuradas para exemplo
-          </Text>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={8}>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={createSchema}
-            enableReinitialize
-            onSubmit={(values) => {
-              handleSubmit(values);
-            }}
-          >
-            {({ errors, touched }) => (
-              <Form autoComplete="off">
-                <Row>
-                  <Col md={12} className="mb-3">
-                    <Input
-                      cy="test-inputName"
-                      isInvalid={(errors.name && touched.name) || false}
-                      msg={errors.name}
-                      label="Nome"
-                      id="name"
-                      name="name"
-                      as="input"
-                      placeholder="Insira seu nome"
-                    />
-                  </Col>
-                  {!id && (
-                    <>
-                      <Col md={12} className="mb-3">
-                        <Input
-                          cy="test-inputPassword"
-                          isInvalid={(errors.password && touched.password) || false}
-                          msg={errors.password}
-                          label="Senha"
-                          id="password"
-                          name="password"
-                          as="input"
-                          placeholder="Insira sua senha"
-                        />
-                      </Col>
-                      <Col md={12} className="mb-3">
-                        <Input
-                          cy="test-inputEmail"
-                          isInvalid={(errors.email && touched.email) || false}
-                          msg={errors.email}
-                          label="E-mail"
-                          id="email"
-                          name="email"
-                          as="input"
-                          placeholder="Insira seu e-mail"
-                        />
-                      </Col>
-                    </>
-                  )}
-                  <Col md={12} className="mt-3">
-                    <Button type="submit" disabled={loader} variant="primary" cy="test-create">
-                      {id ? 'Editar informações' : 'Cadastrar-se'}
-                    </Button>
-                  </Col>
-                </Row>
-              </Form>
-            )}
-          </Formik>
-        </Col>
-      </Row>
-    </Section>
+    <div className="actions-container">
+      <Header />
+      <div className="body">
+        <Row className="body__title">
+          <Col md={12}>
+            <Text as="h1" size="2rem" weight={700}>
+              Editar nome
+            </Text>
+          </Col>
+        </Row>
+        <Row className="body__form">
+          <Col md={12}>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validateSchema}
+              enableReinitialize
+              onSubmit={(values) => {
+                handleSubmit(values);
+              }}
+            >
+              {({ errors, touched }) => (
+                <Form autoComplete="off">
+                  <Row className="body__form__container">
+                    <Col md={12} className="mb-3">
+                      <Input
+                        cy="test-inputTitle"
+                        isInvalid={(errors.name && touched.name) || false}
+                        msg={errors.name}
+                        label="Nome"
+                        id="name"
+                        name="name"
+                        className="body__form__container__input"
+                        as="input"
+                        placeholder="Insira seu nome"
+                      />
+                    </Col>
+                    <div className="submit-button">
+                      <Button type="submit" disabled={loader} variant="primary" cy="test-create">
+                        Alterar
+                      </Button>
+                    </div>
+                  </Row>
+                </Form>
+              )}
+            </Formik>
+          </Col>
+        </Row>
+      </div>
+    </div>
   );
 };
 
-export default Create;
+export default ActionUser;

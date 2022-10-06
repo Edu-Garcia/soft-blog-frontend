@@ -61,6 +61,11 @@
       &__buttons {
         display: flex;
         gap: 0.5rem;
+
+        button {
+          display: flex;
+          gap: 0.5rem;
+        }
       }
     }
   }

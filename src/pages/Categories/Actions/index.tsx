@@ -10,7 +10,7 @@ import Input from '../../../components/Input';
 import CategoriesService from '../../../services/categories.service';
 import toastMsg, { ToastType } from '../../../utils/toastMsg';
 import Header from '../../../components/Header';
-// import './styles.scss';
+import './styles.scss';
 
 const validateSchema = yup.object().shape({
   title: yup.string().max(50, 'Máximo 50 caracteres').required('Campo obrigatório'),

@@ -1,0 +1,45 @@
+.body {
+  min-height: calc(100vh - 5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  &__title {
+    width: 80%;
+    margin: 5rem 0 2rem;
+  }
+
+  &__form {
+    width: 80%;
+
+    &__container {
+      gap: 1rem;
+
+      .selectText {
+        text-transform: capitalize;
+      }
+
+      &__input {
+        background-color: transparent;
+        color: var(--gray-100);
+        border: none;
+        border-bottom: 1px solid var(--green-500);
+        margin: 0.5rem 0;
+        padding: 0.5rem 0.75rem;
+
+        &:focus {
+          background-color: transparent;
+          color: var(--gray-100);
+          box-shadow: none;
+          border-color: var(--green-400);
+        }
+
+        &__option {
+          background-color: var(--gray-800);
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+}

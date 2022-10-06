@@ -10,6 +10,7 @@ import checkTokenIsValid from '../utils/checkTokenIsValid';
 const Home = lazy(() => import('../pages/Home'));
 const Login = lazy(() => import('../pages/Login'));
 const Register = lazy(() => import('../pages/Register'));
+const UserEdit = lazy(() => import('../pages/Users/Actions'));
 const Post = lazy(() => import('../pages/Posts/Unit'));
 const MyPosts = lazy(() => import('../pages/Posts/List'));
 const MyPostActions = lazy(() => import('../pages/Posts/Actions'));
@@ -44,6 +45,14 @@ const AppRoutes: React.FunctionComponent = () => (
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route
+                path="/usuarios/acao/:id"
+                element={
+                  <PrivateRoute redirectTo="/">
+                    <UserEdit />
+                  </PrivateRoute>
+                }
+              />
               <Route
                 path="/postagens/:id"
                 element={

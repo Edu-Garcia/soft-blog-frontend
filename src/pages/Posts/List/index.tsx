@@ -8,10 +8,10 @@ import PostsService from '../../../services/posts.service';
 import toastMsg, { ToastType } from '../../../utils/toastMsg';
 import Button from '../../../components/Button';
 import Header from '../../../components/Header';
+import { PostCard } from '../../../components/PostCard';
 import { useAuth } from '../../../contexts/AuthContext/useAuth';
 
 import './styles.scss';
-import { PostCard } from '../../../components/PostCard';
 
 const Posts: React.FunctionComponent = (): React.ReactElement => {
   const [posts, setPosts] = useState<IPost[]>([]);

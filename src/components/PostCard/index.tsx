@@ -3,9 +3,9 @@ import { FaUserCircle } from 'react-icons/fa';
 import { RiDeleteBinFill, RiEdit2Fill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import formatDate from '../../utils/formatDate';
+import ModalDelete from '../ModalDelete';
 
 import './styles.scss';
-import ModalDelete from '../ModalDelete';
 
 interface PostCardProps {
   id: string;
@@ -28,18 +28,6 @@ export function PostCard({
 }: PostCardProps): React.ReactElement {
   const navigate = useNavigate();
   const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
-
-  // const deletePost = async (postId: string): Promise<void> => {
-  //   setLoader(true);
-  //   try {
-  //     await PostsService.delete(postId);
-  //     toastMsg(ToastType.Success, 'Postagem excluída com sucesso!');
-  //   } catch (error) {
-  //     toastMsg(ToastType.Error, error instanceof AxiosError ? error.response?.data.message : 'Internal Server Error!');
-  //   } finally {
-  //     setLoader(false);
-  //   }
-  // };
 
   return (
     <div className="card">
